@@ -29,6 +29,9 @@ void LorieCompositor::start() {
 	display = wl_display_create();
 	wl_display_add_socket_auto(display);
 	
+	putenv("XDG_RUNTIME_DIR=/data/data/com.termux.x11/files/tmp");
+	chmod("/data/data/com.termux.x11/files/tmp/wayland-0.lock", 0777);
+	
 	wl_event_loop_add_fd(wl_display_get_event_loop(display), queue.get_fd(), WL_EVENT_READABLE, &proc, this);
 	
 	wl_display_add_client_created_listener(display, &client_created_listener);
@@ -42,8 +45,7 @@ void LorieCompositor::start() {
 	backend_init();
 
 	wl_display_run(display);
-	putenv("XDG_RUNTIME_DIR=/data/data/com.termux.x11/files/tmp");
-	chmod("/data/data/com.termux.x11/files/tmp/wayland-0.lock", 0777);
+	
 }
 
 void LorieCompositor::post(std::function<void()> f) {
