@@ -1,6 +1,6 @@
 #include <lorie-compositor.hpp>
 #include <lorie-client.hpp>
-
+#include <sys/stat.h>
 #include <LorieImpls.hpp>
 
 #pragma clang diagnostic push
